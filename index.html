@@ -1,28 +1,35 @@
 <!DOCTYPE html>
-
+<html>
+<head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nuestra Historia</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Lora:ital@0;1&display=swap');
         
-        body {
+        * {
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
             background: #f9f3f3;
             font-family: 'Lora', serif;
             min-height: 100vh;
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
-            perspective: 1000px;
+            padding: 20px;
         }
 
         .book {
+            width: min(95vw, 1200px);
+            aspect-ratio: 3/2;
             position: relative;
-            width: 800px;
-            height: 600px;
-            transform-style: preserve-3d;
-            transition: transform 0.5s;
+            perspective: 2000px;
+            margin: 20px auto;
         }
 
         .book-cover {
@@ -35,8 +42,7 @@
             cursor: pointer;
             background: linear-gradient(135deg, #ffe6e6, #fff0f0);
             border: 2px solid #d4a5a5;
-            padding: 20px;
-            box-sizing: border-box;
+            padding: 40px;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -47,7 +53,6 @@
 
         .book.open .book-cover {
             transform: rotateY(-180deg);
-            z-index: 1;
         }
 
         .pages-container {
@@ -66,86 +71,88 @@
             transform-style: preserve-3d;
             cursor: pointer;
             background: white;
-            padding: 20px;
-            box-sizing: border-box;
-            box-shadow: 5px 5px 20px rgba(0,0,0,0.2);
-            visibility: visible;
-            opacity: 1;
+            padding: 40px;
+            overflow: hidden;
+            display: grid;
+            grid-template-rows: auto 1fr auto;
         }
 
         .page.turned {
             transform: rotateY(-180deg);
-            z-index: 1;
         }
 
-        .page-content {
+        .page-content, .page-back {
             position: absolute;
-            width: calc(80% - 50px);
-            height: calc(80% - 50px);
-            padding: 20px;
+            width: 100%;
+            height: 100%;
+            padding: 40px;
             backface-visibility: hidden;
             background: white;
-            overflow-y: auto;
+            display: grid;
+            grid-template-rows: auto 1fr auto;
+            gap: 20px;
+            font-size: clamp(14px, 2vw, 18px);
+            line-height: 1.6;
         }
 
         .page-back {
-            position: absolute;
-            width: calc(80% - 50px);
-            height: calc(80% - 50px);
-            padding: 20px;
             transform: rotateY(180deg);
-            backface-visibility: hidden;
-            background: white;
-            overflow-y: auto;
-        }
-
-        .page-number {
-            position: absolute;
-            bottom: 20px;
-            right: 20px;
-            font-family: 'Great Vibes', cursive;
-            color: #9e4244;
-            font-size: 1.2em;
         }
 
         h1 {
             font-family: 'Great Vibes', cursive;
-            font-size: 4em;
+            font-size: clamp(2.5rem, 5vw, 4rem);
             color: #9e4244;
+            text-align: center;
             margin: 20px 0;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
         }
 
-        .decoration {
-            font-size: 1.5em;
-            color: #d4a5a5;
-            margin: 10px 0;
+        .chapter-title {
+            font-family: 'Great Vibes', cursive;
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
+            color: #9e4244;
+            margin-bottom: 20px;
+            text-align: center;
         }
 
-        .decorative-line {
-            border: none;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, #d4a5a5, transparent);
-            margin: 20px auto;
-            width: 50%;
+        .chapter-content {
+            overflow-y: auto;
+            padding-right: 20px;
+            scrollbar-width: thin;
+            scrollbar-color: #9e4244 #f9f3f3;
+        }
+
+        .chapter-content::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .chapter-content::-webkit-scrollbar-track {
+            background: #f9f3f3;
+        }
+
+        .chapter-content::-webkit-scrollbar-thumb {
+            background-color: #9e4244;
+            border-radius: 4px;
         }
 
         .navigation {
             position: fixed;
-            bottom: 50px;
+            bottom: 20px;
             display: flex;
-            gap: 60px;
+            gap: clamp(20px, 4vw, 60px);
             z-index: 1000;
         }
 
         .nav-button {
-            padding: 10px 20px;
+            padding: clamp(8px, 2vw, 15px) clamp(15px, 3vw, 30px);
             background: #9e4244;
             color: white;
             border: none;
             border-radius: 5px;
             cursor: pointer;
             font-family: 'Lora', serif;
+            font-size: clamp(14px, 2vw, 16px);
             transition: background 0.3s;
         }
 
@@ -153,47 +160,38 @@
             background: #7e3234;
         }
 
-        .chapter-content {
-            margin: 20px 0;
-            line-height: 1.6;
+        @media (max-width: 768px) {
+            .book {
+                aspect-ratio: 4/3;
+            }
+
+            .page-content, .page-back {
+                padding: 20px;
+            }
         }
 
-        .toc-title {
-            font-family: 'Great Vibes', cursive;
-            color: #9e4244;
-            font-size: 2em;
-            margin-bottom: 20px;
-        }
-
-        .toc-item {
-            margin: 10px 0;
-            color: #666;
-            font-size: 1.1em;
-        }
-
-        .chapter-title {
-            font-family: 'Great Vibes', cursive;
-            color: #9e4244;
-            font-size: 2em;
-            margin-bottom: 20px;
+        @media (max-width: 480px) {
+            .book {
+                aspect-ratio: 1/1;
+            }
         }
     </style>
 </head>
 <body>
+    <!-- El resto del HTML se mantiene igual -->
     <div class="book">
         <div class="book-cover">
             <div class="decoration">🌹</div>
             <h1>Nuestra Historia</h1>
             <div class="decoration">✨ 💝 ✨</div>
             <hr class="decorative-line">
-            <p style="font-family: 'Great Vibes', cursive; font-size: 1.5em; color: #9e4244;">
+            <p style="font-family: 'Great Vibes', cursive; font-size: clamp(1.2rem, 3vw, 1.5rem); color: #9e4244;">
                 Un relato de amor
             </p>
             <div class="decoration">🌹</div>
         </div>
-
         <div class="pages-container">
-            <!-- Las páginas se generarán dinámicamente con JavaScript -->
+            <!-- Las páginas se generan con JavaScript -->
         </div>
     </div>
 
