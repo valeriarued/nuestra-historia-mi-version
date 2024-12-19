@@ -1,42 +1,5 @@
 <!DOCTYPE html>
 <html lang="es">
-    <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Barra de Desplazamiento Personalizada</title>
-    <style>
-        /* Estilo general para la página */
-        body {
-            height: 200vh; /* Para que haya suficiente espacio para desplazar */
-            margin: 0;
-            font-family: Arial, sans-serif;
-        }
-
-        /* Personalización de la barra de desplazamiento */
-        /* Ancho de la barra */
-        ::-webkit-scrollbar {
-            width: 16px; /* Grosor vertical */
-            height: 16px; /* Grosor horizontal */
-        }
-
-        /* Color de fondo del scrollbar */
-        ::-webkit-scrollbar-track {
-            background: #f0f0f0;
-        }
-
-        /* Color de la barra de desplazamiento */
-        ::-webkit-scrollbar-thumb {
-            background-color: #007BFF;
-            border-radius: 8px; /* Bordes redondeados */
-            border: 4px solid #f0f0f0; /* Espacio alrededor */
-        }
-
-        /* Hover sobre la barra de desplazamiento */
-        ::-webkit-scrollbar-thumb:hover {
-            background-color: #0056b3;
-        }
-    </style>
-</head>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -92,6 +55,43 @@
     </style>
 </head>
 <head>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Barra de Desplazamiento Personalizada</title>
+    <style>
+        /* Estilo general para la página */
+        body {
+            height: 200vh; /* Para que haya suficiente espacio para desplazar */
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        /* Personalización de la barra de desplazamiento */
+        /* Ancho de la barra */
+        ::-webkit-scrollbar {
+            width: 16px; /* Grosor vertical */
+            height: 16px; /* Grosor horizontal */
+        }
+
+        /* Color de fondo del scrollbar */
+        ::-webkit-scrollbar-track {
+            background: #f0f0f0;
+        }
+
+        /* Color de la barra de desplazamiento */
+        ::-webkit-scrollbar-thumb {
+            background-color: #007BFF;
+            border-radius: 8px; /* Bordes redondeados */
+            border: 4px solid #f0f0f0; /* Espacio alrededor */
+        }
+
+        /* Hover sobre la barra de desplazamiento */
+        ::-webkit-scrollbar-thumb:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
     <meta charset="UTF-8">
     <title>Nuestra Historia</title>
     <style>
@@ -224,9 +224,9 @@
 
         .navigation {
             position: fixed;
-            bottom: 70px;
+            bottom: 50px;
             display: flex;
-            gap: 70px;
+            gap: 60px;
             z-index: 1000;
         }
 
